@@ -3,8 +3,8 @@ const Pet = (props) => {
     React.createElement('h1', {}, props.name),
     React.createElement('h2', {}, props.animal),
     React.createElement('h2', {}, props.breed),
-  ])
-}
+  ]);
+};
 
 const App = () => {
   // a component should always return markup, which is the result of createElement
@@ -15,22 +15,22 @@ const App = () => {
       React.createElement('h1', {}, 'Adopt Me!'),
       React.createElement(Pet, {
         animal: 'Dog',
-        name : 'Luna',
+        name: 'Luna',
         breed: 'Havanese',
-      }), 
+      }),
       React.createElement(Pet, {
         animal: 'Bird',
-        name : 'Pepper',
+        name: 'Pepper',
         breed: 'Cockatiel',
       }),
       React.createElement(Pet, {
         animal: 'Dog',
-        name : 'Tyrsi',
+        name: 'Tyrsi',
         breed: 'Chihuahua',
       }),
     ]
     // children
-  )
+  );
 };
 
 const container = document.getElementById('root');
