@@ -1,41 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-const Pet = (props) => {
-  return React.createElement('div', {}, [
-    React.createElement('h1', {}, props.name),
-    React.createElement('h2', {}, props.animal),
-    React.createElement('h2', {}, props.breed),
-  ]);
-};
+import { createRoot } from 'react-dom';
+import Pet from './Pet';
 
 const App = () => {
-  // a component should always return markup, which is the result of createElement
-  return React.createElement(
-    'div', // what kind of element this is
-    {}, // attributes
-    [
-      React.createElement('h1', {}, 'Adopt Me!'),
-      React.createElement(Pet, {
-        animal: 'Dog',
-        name: 'Luna',
-        breed: 'Havanese',
-      }),
-      React.createElement(Pet, {
-        animal: 'Bird',
-        name: 'Pepper',
-        breed: 'Cockatiel',
-      }),
-      React.createElement(Pet, {
-        animal: 'Dog',
-        name: 'Tyrsi',
-        breed: 'Chihuahua',
-      }),
-    ]
-    // children
+  return (
+    <div>
+      <h1>Adopt Me!</h1>
+      <Pet name="Luna" animal="dog" breed="Havanese" />
+      <Pet name="Pepper" animal="bird" breed="Cockatiel" />
+      <Pet name="Tyrsi" animal="dog" breed="Chihuahua" />
+    </div>
   );
 };
 
 const container = document.getElementById('root');
-const root = ReactDOM.createRoot(container);
-root.render(React.createElement(App));
+const root = createRoot(container);
+root.render(<App />);
