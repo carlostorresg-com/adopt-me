@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import fetchPet from './fetchPet';
 import Carousel from '../Carousel';
+import ErrorBoundary from '../ErrorBoundary';
 
 const Details = () => {
   const { id } = useParams(); // BrowserRouter is doing the magic to pass id
@@ -41,4 +42,15 @@ const Details = () => {
   );
 };
 
-export default Details;
+function DetailsErrorBoundary(props) {
+  // the reason we do this is because we want to cover errors everywhere inside the <ErrorBoundary> component
+  // if we just wrapped the return from line 30, it wouldn't catch any potential errors
+  // in useQuery, or isLoading...
+  return (
+    <ErrorBoundary>
+      <Details {...props} />
+    </ErrorBoundary>
+  );
+}
+
+export default DetailsErrorBoundary;
