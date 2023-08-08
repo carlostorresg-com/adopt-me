@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import fetchBreedList from '../fetchBreedList';
+import fetchBreedList from './fetchBreedList';
 
 // This is a custom hook
 export default function useBreedList(animal) {

@@ -3,8 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { useState, useContext } from 'react';
 import AdoptedPetContext from './AdoptedPetContext';
 import fetchPet from './fetchPet';
-import Carousel from '../Carousel';
-import ErrorBoundary from '../ErrorBoundary';
+import Carousel from './Carousel';
+import ErrorBoundary from './ErrorBoundary';
 import Modal from './Modal';
 
 const Details = () => {
