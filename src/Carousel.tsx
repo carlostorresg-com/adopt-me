@@ -1,6 +1,10 @@
-import { Component } from 'react';
+import { Component, MouseEvent } from 'react';
 
-class Carousel extends Component {
+interface IProps {
+  images: string[];
+}
+
+class Carousel extends Component<IProps> {
   state = {
     active: 0,
   };
@@ -13,12 +17,18 @@ class Carousel extends Component {
   //   console.log(this); // this is undefined because the function creates a new scope
   // }
 
-  handleIndexClick = (e) => {
-    this.setState({
-      active: +e.target.dataset.index, // dataset refers to any "data-" attributes in the DOM
-      // index is a string -> everything that comes back from the DOM is a string even when it is a number
-      // the plus sign is to coerce the number into a string
-    });
+  handleIndexClick = (event: MouseEvent<HTMLElement>) => {
+    if (!(event.target instanceof HTMLElement)) {
+      return;
+    }
+
+    if (event.target.dataset.index) {
+      this.setState({
+        active: +event.target.dataset.index, // dataset refers to any "data-" attributes in the DOM
+        // index is a string -> everything that comes back from the DOM is a string even when it is a number
+        // the plus sign is to coerce the number into a string
+      });
+    }
   };
 
   render() {

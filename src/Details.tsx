@@ -8,16 +8,21 @@ import ErrorBoundary from './ErrorBoundary';
 import Modal from './Modal';
 
 const Details = () => {
+  const { id } = useParams(); // BrowserRouter is doing the magic to pass id
+  if (!id) {
+    throw new Error('id is required');
+  }
+
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
-  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
 
-  const { id } = useParams(); // BrowserRouter is doing the magic to pass id
   // Using React Query explanation
   // search the key 'details' with the value id
   // if it's not in the cache, run fetchPet
   const results = useQuery(['details', id], fetchPet);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
 
   if (results.isError) {
     // if there is an error apparently React Query tries to re-fetch 3 times before getting to here
@@ -33,7 +38,11 @@ const Details = () => {
   }
 
   // at this point, we can assume pet is loaded 🐶
-  const pet = results.data.pets[0];
+  const pet = results?.data?.pets[0];
+
+  if (!pet) {
+    throw new Error('no pet');
+  }
 
   return (
     <div className="details">
@@ -70,13 +79,13 @@ const Details = () => {
   );
 };
 
-function DetailsErrorBoundary(props) {
+function DetailsErrorBoundary() {
   // the reason we do this is because we want to cover errors everywhere inside the <ErrorBoundary> component
   // if we just wrapped the return from line 30, it wouldn't catch any potential errors
   // in useQuery, or isLoading...
   return (
     <ErrorBoundary>
-      <Details {...props} />
+      <Details />
     </ErrorBoundary>
   );
 }
